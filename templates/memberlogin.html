@@ -1,0 +1,68 @@
+<html>
+<head>
+	<meta charset = 'utf-8'>
+	<title>Login Page</title>
+	<style type="text/css">
+		body {
+		    background-image: url("http://uhaweb.hartford.edu/MNUNEZ/Veggies.jpg");
+		    background-repeat: repeat-x;
+		}
+		img{
+			height: 300px;
+			width: 400px;
+			display: inline-block;
+		}
+		p{
+			background-color: #931d0b;
+			color: black;
+		}
+		h1{
+			color: #ce3e31;
+    		text-shadow: 0 0 5px #A5F1FF, 0 0 10px #A5F1FF,
+             0 0 20px #A5F1FF, 0 0 30px #A5F1FF,
+             0 0 40px #A5F1FF;
+             background-color: black;
+             font-size: 60px;
+             border-radius: 5px;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>This is Eric's fiery dungeon of Heavy Metal and Vegan Recipes!</h1>
+	
+	{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+      		{% for message in messages %}
+        		<p>{{message}}</p>
+      		{% endfor %}
+    	{% endif %}
+  	{% endwith %}
+
+  	<p>
+  	{% for user in users: %}
+      Name: {{user['first_name']}}
+      {{user['last_name']}} |
+
+      Email: {{user['email']}}
+      Created at:{{ user['created_at'].strftime('%d / %m / %y')}}
+  	{% endfor %}</p>
+
+	  {% if session['user_id']%}
+	  	<h1>USER IS LOGGED IN</h1>
+	  {% else %}
+	    <h1>LOGIN OR REGISTER HERE</h1>
+	  {% endif %}
+
+  	<form action='/login' method='POST'>
+	</form>
+	<form action='/commentspage' method='POST'>
+		<input type='submit' value='Go To WALL OF DEATH'>
+	</form>
+	<a href="/reset"><button>LOGOUT</button></a>
+
+	
+	<img src="http://www.nosabesnada.com/uploads/2013/05/2012HeavyMetalPA-142273792112121.jpg" class='metal'>
+	<img src="http://cf.chucklesnetwork.com/items/7/6/3/1/7/original/yo-dawg-we-heard-you-like-heavy-metal-so-we-put-lead-in-your-vei.jpg" alt="metall" class='metal'>
+</body>
+</html>

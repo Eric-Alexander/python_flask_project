@@ -1,0 +1,106 @@
+<html>
+<head>
+	<meta charset = 'utf-8'>
+	<title>Form Validation Stuff</title>
+	<style type="text/css">
+		body {
+		    background-image: url("http://uhaweb.hartford.edu/MNUNEZ/Veggies.jpg");
+		    background-repeat: repeat-x;
+		}
+		.metal{
+			display: inline-block;
+		}
+		p{
+			background-color: #931d0b;
+			color: black;
+		}
+		h1 {
+			color: #ce3e31;
+    		text-shadow: 0 0 5px #A5F1FF, 0 0 10px #A5F1FF,
+             0 0 20px #A5F1FF, 0 0 30px #A5F1FF,
+             0 0 40px #A5F1FF;
+             background-color: black;
+             border-radius: 5px;
+             font-size: 60px;
+             margin-bottom: 0px;
+		}
+		h3 {
+		color: #ce3e31;
+		text-shadow: 0 0 5px #A5F1FF, 0 0 10px #A5F1FF,
+	     0 0 20px #A5F1FF, 0 0 30px #A5F1FF,
+	     0 0 40px #A5F1FF;
+	     background-color: black;
+	     font-size: 30px;
+		}
+		#messagebox{
+			height: 100px;
+			width: 500px;
+			border: 4px solid black;
+			background-color: #931d0b;
+			margin-top: 0px;
+		}
+		#commentbox{
+			margin-left: 500px;
+			background-color: #931d0b;
+			margin-top: 0px;
+		}
+		#commenttext{
+			border: 1px solid black;
+			background-color: #931d0b;
+		}
+		#mainlogs{
+			border: 1px solid black;
+			background-color: #931d0b;
+
+		}
+		#messagetag{
+			font-size: 20px;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>Eric's fiery dungeon of Heavy Metal and Vegan Recipes!</h1>
+	<h1>The Wall of Death</h1>
+	
+	{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+      		{% for message in messages %}
+        		<p>{{message}}</p>
+      		{% endfor %}
+    	{% endif %}
+  	{% endwith %}
+  	<div id = 'mainlogs'>
+  		<a href="/reset"><button>LOGOUT</button></a>
+  		<form action='/postmessage' method='POST'>
+  			<textarea name='submitmessage' type='text' id='messagebox'></textarea>
+  			<input type='submit' value='Post Upon the Heavy Metal Wall of Death'>
+  		</form>
+
+  		{% for element in messages | reverse %}
+  		<p id="messagetag">{{element['first_name']}} said: "{{element['message']}} " at {{element['created_at']}}</p>
+
+
+
+  			{% for comment in comments | reverse %}
+  				{% if comment['message_id'] == element['id'] %}
+  				<p>        {{element['first_name']}} said this:
+  					"{{comment['comment']}}" at {{comment['created_at']}} about the message above!</p>
+  				{% endif %}
+  			{% endfor %}
+  			<form action='/postcomment' method='POST' id='commentbox'>
+			<textarea name='submitcomment' type='text'  id='commenttext'></textarea>
+			<input type='hidden' name='message_id' value='{{element['id']}}'>
+			<input type='submit' value='Comment on this message'>
+
+			</form>
+
+  			<!-- additional for loop
+  			thru messages if comment column message_id=element message -->
+  		{% endfor %}
+  	</div>
+
+	<img src="http://3.bp.blogspot.com/_0gaEUHgqF2Q/S7NEJZfYVWI/AAAAAAAAAXQ/A0rtftYq0CI/s1600/BlackMetal.jpg" alt="blackmetal" class='metal'>
+	<img src="http://media-cache-ec0.pinimg.com/originals/2d/62/03/2d6203c972f2fa8da13d54c0446e7e78.jpg" alt="metall" class='metal'>
+</body>
+</html>

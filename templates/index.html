@@ -1,0 +1,74 @@
+<html>
+<head>
+	<meta charset = 'utf-8'>
+	<title>Form Validation Stuff</title>
+	<style type="text/css">
+		body {
+		    background-image: url("http://uhaweb.hartford.edu/MNUNEZ/Veggies.jpg");
+		    background-repeat: repeat-x;
+		}
+		.metal{
+			display: inline-block;
+		}
+		p{
+			background-color: #931d0b;
+			color: black;
+		}
+		h1 {
+			color: #ce3e31;
+    		text-shadow: 0 0 5px #A5F1FF, 0 0 10px #A5F1FF,
+             0 0 20px #A5F1FF, 0 0 30px #A5F1FF,
+             0 0 40px #A5F1FF;
+             background-color: black;
+             font-size: 60px;
+		}
+		h3 {
+		color: #ce3e31;
+		text-shadow: 0 0 5px #A5F1FF, 0 0 10px #A5F1FF,
+	     0 0 20px #A5F1FF, 0 0 30px #A5F1FF,
+	     0 0 40px #A5F1FF;
+	     background-color: black;
+	     font-size: 30px;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>Welcome to Eric's fiery dungeon of Heavy Metal and Vegan Recipes!</h1>
+	
+	{% with messages = get_flashed_messages() %}
+    	{% if messages %}
+      		{% for message in messages %}
+        		<p>{{message}}</p>
+      		{% endfor %}
+    	{% endif %}
+  	{% endwith %}
+
+	{% if session['user_id']%}
+		<h1>USER IS LOGGED IN</h1>
+	 	{% else %}
+	   	<h1>LOGIN OR REGISTER HERE</h1>
+	{% endif %}
+
+  	<form action='/login' method='POST'>
+	<p>Email: <input type = 'email' name='email'></p>
+	<p>Password: <input type = 'password' name='password'></p>
+	<!-- <p>Confirm Password: <input type = 'password' name='cpassword'></p> -->
+	<button>Login</button>
+	</form>
+
+	<h3>New to the site? Register HERE:</h3>
+
+  	<form action='/create_user' method='POST'>
+	<p>First Name: <input type = 'text' name='first_name'></p>
+	<p>Last Name: <input type = 'text' name='last_name'></p>
+	<p>Email: <input type = 'email' name='email'></p>
+	<p>Password: <input type = 'password' name='password'></p>
+	<p>Confirm Password: <input type = 'password' name='cpassword'></p>
+	<button >Create User</button>
+	</form>
+
+	<img src="http://3.bp.blogspot.com/_0gaEUHgqF2Q/S7NEJZfYVWI/AAAAAAAAAXQ/A0rtftYq0CI/s1600/BlackMetal.jpg" alt="blackmetal" class='metal'>
+	<img src="http://media-cache-ec0.pinimg.com/originals/2d/62/03/2d6203c972f2fa8da13d54c0446e7e78.jpg" alt="metall" class='metal'>
+</body>
+</html>
